@@ -1,0 +1,101 @@
+﻿<Window x:Class="RetroRPG.Menu_Load"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:RetroRPG"
+        mc:Ignorable="d"
+        Background="Black"
+        Title="Menu_Load" Height="450" Width="800">
+    <Viewbox>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="64"/>
+                <RowDefinition/>
+                <RowDefinition Height="64"/>
+            </Grid.RowDefinitions>
+
+            <Label Grid.Row="0" HorizontalContentAlignment="Center" FontFamily="Pixel Azure Bonds" Foreground="White" FontSize="36">Load Game</Label>
+
+            <StackPanel Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+
+                <StackPanel.Resources>
+                    <Style TargetType="Button">
+                        <Setter Property="Background" Value="#FF0000AA" />
+                        <Setter Property="BorderBrush" Value="#00707070" />
+                        <Setter Property="FontFamily" Value="Pixel Azure Bonds" />
+                        <Setter Property="FontSize" Value="16" />
+                        <Setter Property="Foreground" Value="White" />
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="Button">
+                                    <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1" CornerRadius="0">
+                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+
+                        <Style.Triggers>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Background" Value="#FFAAAAAA" />
+                                <Setter Property="Foreground" Value="#FF555555" />
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </StackPanel.Resources>
+
+                <Button Name="BtnLoadGame" Width="384" Height="64" BorderBrush="#00707070" FontFamily="Pixel Azure Bonds" FontSize="16" Foreground="White">
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Setter Property="Background" Value="#FF0000AA" />
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="Button">
+                                        <Border x:Name="border" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1" CornerRadius="0">
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="128"/>
+                                                    <ColumnDefinition Width="128"/>
+                                                    <ColumnDefinition Width="128"/>
+                                                </Grid.ColumnDefinitions>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="35"/>
+                                                    <RowDefinition/>
+                                                </Grid.RowDefinitions>
+
+                                                <Label HorizontalContentAlignment="Left" Grid.Row="0" Grid.Column="0" Foreground="White" FontSize="20">Save 81</Label>
+
+                                                <StackPanel HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Grid.RowSpan="2">
+                                                    <Label HorizontalContentAlignment="Right" Foreground="#FF55FF55" FontSize="32">Fordrunn</Label>
+                                                    <Label HorizontalContentAlignment="Right" Foreground="#FFFF55FF" FontSize="12" RenderTransformOrigin="0.5,0.5">
+                                                        <Label.RenderTransform>
+                                                            <TransformGroup>
+                                                                <TranslateTransform Y="-12"/>
+                                                            </TransformGroup>
+                                                        </Label.RenderTransform> Level 34 Human Male
+                                                    </Label>
+                                                </StackPanel>
+                                                <Label VerticalContentAlignment="Center" HorizontalContentAlignment="Left"  Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Foreground="#FFAAAAAA" FontSize="12">18/11/1994 - 14:47</Label>
+                                            </Grid>
+                                        </Border>
+                                        <ControlTemplate.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter TargetName="border" Property="Background" Value="#FF4F4FCE" />
+                                            </Trigger>
+                                        </ControlTemplate.Triggers>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </Button.Style>
+                </Button>
+                <Button IsEnabled="False" Margin="0,10,0,0" Width="384" Height="64" FontFamily="Pixel Azure Bonds" FontSize="16">Empty Save Slot 2</Button>
+                <Button IsEnabled="False" Margin="0,10,0,0" Width="384" Height="64" FontFamily="Pixel Azure Bonds" FontSize="16">Empty Save Slot 3</Button>
+                <Button IsEnabled="False" Margin="0,10,0,0" Width="384" Height="64" FontFamily="Pixel Azure Bonds" FontSize="16">Empty Save Slot 4</Button>
+            </StackPanel>
+
+            <Button Name="BtnBack" HorizontalAlignment="Left" Height="40" Width="128" Grid.Row="2" Background="#FF00AAAA" BorderBrush="#00707070" FontFamily="Pixel Azure Bonds" FontSize="16" Foreground="White" Click="BtnBack_Click">Go Back</Button>
+        </Grid>
+    </Viewbox>
+</Window>
