@@ -55,6 +55,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="GameView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -63,7 +67,15 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="components\Data.cs" />
+    <Compile Include="components\game\Actions.cs" />
+    <Compile Include="components\game\Canvas.cs" />
+    <Compile Include="components\game\History.cs" />
+    <Compile Include="components\game\Interface.cs" />
     <Compile Include="components\Menu.cs" />
+    <Compile Include="GameView.xaml.cs">
+      <DependentUpon>GameView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -112,6 +124,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="assets\img\interface\interface_items.png" />
+    <Resource Include="assets\img\interface\interface_map.png" />
+    <Resource Include="assets\img\interface\interface_skills.png" />
+    <Resource Include="assets\img\interface\interface_stats.png" />
     <Content Include="assets\music\intro_stats.wav" />
     <Content Include="assets\music\intro_story.wav" />
     <Content Include="assets\music\menu.wav" />
