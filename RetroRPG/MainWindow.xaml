@@ -90,6 +90,7 @@
                 </WrapPanel.Resources>
                 <Button Name="BtnMusic" FontSize="8" Background="#FFAA0000" Click="BtnMusic_Click" >Mute</Button>
                 <Label Foreground="#FFFDFDFD" FontFamily="{StaticResource BodyFont}" FontSize="8">A simple C# WPF application trying to mimic a Retro (90's) RPG</Label>
+                <Button Name="BtnAbout" FontSize="8" Background="#AA00AA" Click="BtnAbout_Click" >About</Button>
             </WrapPanel>
         </Grid>
     </Viewbox>

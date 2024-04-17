@@ -62,12 +62,6 @@ namespace RetroRPG.components.menu
                 }
                 soundPlayer = null;
             }
-
-            public static void ClearBackgroundProcesses()
-            {
-                Application.Current.Shutdown();
-                StopMenuMusic();
-            }
         }
 
     }

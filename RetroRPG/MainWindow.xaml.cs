@@ -75,5 +75,11 @@ namespace RetroRPG
                 }
             }
         }
+
+        private void BtnAbout_Click(object sender, RoutedEventArgs e)
+        {
+
+            WindowUtilities.RedirectWindow(this, typeof(Menu_About));
+        }
     }
 }
