@@ -14,11 +14,23 @@ namespace RetroRPG.components.game
         {
             if (action != null)
             {
-                Console.WriteLine($"Tile clicked: Row {row}, Column {column}, Action: {action}");
+                History log = new History(gameViewInstance.TxtHistory);
+                log.AddNewLine();
+                log.AddTimeStamp(DateTime.Now, "#AAAAAA");
+                log.AddLog($"You are trying to ", "#FFFFFF");
+                log.AddLog($"{action} ", "#00AAAA");
+                log.AddLog($"tile ", "#FFFFFF");
+                log.AddLog($"{row}-{column}.", "#AA00AA");
+                log.AddDivider();
             }
             else
             {
-                Console.WriteLine($"Tile clicked WITHOUT action: Row {row}, Column {column}");
+                History log = new History(gameViewInstance.TxtHistory);
+                log.AddNewLine();
+                log.AddTimeStamp(DateTime.Now, "#AAAAAA");
+                log.AddLog($"You have clicked on tile ", "#FFFFFF");
+                log.AddLog($"{row}-{column}.", "#FF55FF");
+                log.AddDivider();
             }
         }
 
@@ -77,6 +89,12 @@ namespace RetroRPG.components.game
                     };
                 }
             }
+        }
+
+        private static GameView gameViewInstance;
+        public static void SetGameViewInstance(GameView gameView)
+        {
+            gameViewInstance = gameView;
         }
     }
 }

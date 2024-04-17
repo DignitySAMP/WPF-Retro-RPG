@@ -43,7 +43,13 @@ namespace RetroRPG.components.game
             {
                 Foreground = (System.Windows.Media.Brush)new System.Windows.Media.BrushConverter().ConvertFromString(color)
             };
-            _textBlock.Inlines.Add(run);
+            _textBlock.Inlines.Add(run); 
+            
+            if (gameViewInstance != null && gameViewInstance.HistoryScroller != null)
+            {
+                gameViewInstance.HistoryScroller.ScrollToVerticalOffset(gameViewInstance.HistoryScroller.ScrollableHeight);
+                gameViewInstance.HistoryScroller.ScrollToBottom();
+            }
         }
 
         public void AddNewLine()
@@ -67,6 +73,12 @@ namespace RetroRPG.components.game
         {
             AddLog($"[{time.ToString("HH:mm:ss")}] ", "#AAAAAA");
             AddLog(text, color);
+        }
+
+        private static GameView gameViewInstance;
+        public static void SetGameViewInstance(GameView gameView)
+        {
+            gameViewInstance = gameView;
         }
     }
 }

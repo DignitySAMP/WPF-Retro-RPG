@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Media;
@@ -42,8 +43,29 @@ namespace RetroRPG.components.game
 
         private static void Button_Click(object sender, System.Windows.RoutedEventArgs e)
         {
-            selectedButton = (Button)sender;
-            selectedButton.Background = Brushes.Red;
+            Button clickedButton = (Button)sender;
+
+            if (selectedButton == clickedButton)
+            {
+                selectedButton = null;
+                CreateActionsPanel();
+            }
+
+            else if (selectedButton != null)
+            {
+                History log = new History(gameViewInstance.TxtHistory);
+                log.AddNewLine();
+                log.AddTimeStamp(DateTime.Now, "#AAAAAA");
+                log.AddLog("You must deselect your current button first", "#AA0000");
+                log.AddDivider();
+            }
+
+            else if (selectedButton == null)
+            {
+
+                selectedButton = clickedButton;
+                selectedButton.Background = Brushes.Red;
+            }
         }
 
         private static Style CreateButtonStyle()  // handles styling for action buttons
@@ -79,6 +101,12 @@ namespace RetroRPG.components.game
             buttonStyle.Setters.Add(new Setter(Button.TemplateProperty, template));
 
             return buttonStyle;
+        }
+
+        private static GameView gameViewInstance; 
+        public static void SetGameViewInstance(GameView gameView)
+        {
+            gameViewInstance = gameView;
         }
     }
 }

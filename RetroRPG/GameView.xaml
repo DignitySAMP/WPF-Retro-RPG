@@ -23,7 +23,7 @@
 
             <StackPanel Name="StackInterface" Grid.Column="2" Grid.Row="0" Background="Black" Margin="5" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
 
-            <ScrollViewer  Grid.Column="2" Grid.Row="1" Background="Black" Margin="5">
+            <ScrollViewer Name="HistoryScroller" Grid.Column="2" Grid.Row="1" Background="Black" Margin="5">
                 <TextBlock IsEnabled="false" Name="TxtHistory" TextWrapping="Wrap" FontSize="12" FontFamily="{StaticResource BodyFont}"/>
             </ScrollViewer>
 

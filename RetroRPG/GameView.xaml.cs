@@ -5,7 +5,7 @@ using static RetroRPG.components.game.History;
 using static RetroRPG.components.game.Actions;
 using RetroRPG.components.game;
 using System;
-using static RetroRPG.components.menu.Windows;
+using System.Windows.Controls;
 
 namespace RetroRPG
 {
@@ -19,16 +19,17 @@ namespace RetroRPG
             InitializeComponent();
             Closed += OnWindowClosed;
         }
+
+
         private void OnWindowClosed(object sender, System.EventArgs e)
         {
             Application.Current.Shutdown();
         }
 
-        
-
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             CreateGameView(GameWrapper);
+            GameGrid.SetGameViewInstance(this);
             CreateInventoryTiles(StackInterface);
 
             History log = new History(TxtHistory);
@@ -36,7 +37,11 @@ namespace RetroRPG
             log.AddDivider(); 
             log.AddNewLine();
 
+
+            History.SetGameViewInstance(this);
             CreateHistory(TxtHistory); // debug
+
+            Actions.SetGameViewInstance(this);
             CreateActionPanel(StackActionBtns);
         }
     }
