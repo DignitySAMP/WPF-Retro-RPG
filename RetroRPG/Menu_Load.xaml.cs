@@ -1,5 +1,7 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using RetroRPG.components.menu;
+using static RetroRPG.components.menu.Windows;
 
 namespace RetroRPG
 {
@@ -11,11 +13,16 @@ namespace RetroRPG
         public Menu_Load()
         {
             InitializeComponent();
+            Closed += OnWindowClosed;
+        }
+        private void OnWindowClosed(object sender, EventArgs e)
+        {
+            Application.Current.Shutdown();
         }
 
         private void BtnBack_Click(object sender, RoutedEventArgs e)
         {
-            Windows.RedirectWindow(this, typeof(MainWindow));
+            WindowUtilities.RedirectWindow(this, typeof(MainWindow));
             this.Hide();
         }
     }

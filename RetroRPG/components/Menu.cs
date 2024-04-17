@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,50 +10,65 @@ namespace RetroRPG.components.menu
 {
     public class Windows
     {
-        public static void RedirectWindow(Window owner, Type windowType)
+        public static class WindowUtilities
         {
-            Window newWindow = (Window)Activator.CreateInstance(windowType);
 
-            newWindow.Owner = owner;
-            newWindow.WindowStartupLocation = WindowStartupLocation.CenterOwner;
-
-            newWindow.Width = owner.ActualWidth;
-            newWindow.Height = owner.ActualHeight;
-
-            if (owner.WindowState == WindowState.Maximized)
+            public static void RedirectWindow(Window owner, Type windowType)
             {
-                newWindow.WindowState = WindowState.Maximized;
-            }
-            else
-            {
-                newWindow.WindowState = WindowState.Normal;
+                Window newWindow = (Window)Activator.CreateInstance(windowType);
+
+                newWindow.Owner = owner;
+                newWindow.WindowStartupLocation = WindowStartupLocation.CenterOwner;
+
+                newWindow.Width = owner.ActualWidth;
+                newWindow.Height = owner.ActualHeight;
+
+                if (owner.WindowState == WindowState.Maximized)
+                {
+                    newWindow.WindowState = WindowState.Maximized;
+                }
+                else
+                {
+                    newWindow.WindowState = WindowState.Normal;
+                }
+
+                owner.Hide();
+                newWindow.Show();
             }
 
-            newWindow.Show();
-            owner.Hide();
         }
 
 
-        private static System.Media.SoundPlayer soundPlayer;
-        public static bool IsMusicMuted = false;
-
-        public static void PlayMenuMusic()
+        public static class AudioManager
         {
-            if (soundPlayer == null && !IsMusicMuted)
+            private static System.Media.SoundPlayer soundPlayer;
+            public static bool IsMusicMuted = false;
+
+            public static void PlayMenuMusic()
             {
-                soundPlayer = new System.Media.SoundPlayer(Properties.Resources.menu);
-                soundPlayer.Play();
+                if (soundPlayer == null && !IsMusicMuted)
+                {
+                    soundPlayer = new System.Media.SoundPlayer(Properties.Resources.menu);
+                    soundPlayer.PlayLooping();
+                }
+            }
+
+            public static void StopMenuMusic()
+            {
+                if (soundPlayer != null)
+                {
+                    soundPlayer.Stop();
+                    soundPlayer.Dispose();
+                }
+                soundPlayer = null;
+            }
+
+            public static void ClearBackgroundProcesses()
+            {
+                Application.Current.Shutdown();
+                StopMenuMusic();
             }
         }
 
-        public static void StopMenuMusic()
-        {
-            if (soundPlayer != null)
-            {
-                soundPlayer.Stop();
-                soundPlayer.Dispose();
-                soundPlayer = null; 
-            }
-        }
     }
 }

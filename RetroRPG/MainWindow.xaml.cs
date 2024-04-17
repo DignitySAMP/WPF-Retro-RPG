@@ -5,6 +5,7 @@ using System.Windows.Controls;
 using RetroRPG.components.menu;
 using RetroRPG.components;
 using System.Windows.Media;
+using static RetroRPG.components.menu.Windows;
 
 // For reference: https://wiki.ultimacodex.com/wiki/Ultima_IV_internal_formats#Introduction
 
@@ -20,38 +21,42 @@ namespace RetroRPG
         public MainWindow()
         {
             InitializeComponent();
+            Closed += OnWindowClosed;
         }
-
+        private void OnWindowClosed(object sender, System.EventArgs e)
+        {
+            Application.Current.Shutdown();
+        }
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            Windows.PlayMenuMusic();
+            AudioManager.PlayMenuMusic();
         }
 
         private void BtnStartGame_Click(object sender, RoutedEventArgs e)
         {
-            Windows.StopMenuMusic();
-            Windows.RedirectWindow(this, typeof(Menu_Start));
+            AudioManager.StopMenuMusic();
+            WindowUtilities.RedirectWindow(this, typeof(Menu_Start));
         }
 
         private void BtnLoadGame_Click(object sender, RoutedEventArgs e)
         {
-            Windows.RedirectWindow(this, typeof(Menu_Load));
+            WindowUtilities.RedirectWindow(this, typeof(Menu_Load));
         }
 
         private void BtnQuitGame_Click(object sender, RoutedEventArgs e)
         {
-            Windows.StopMenuMusic();
+            AudioManager.StopMenuMusic();
             Close();
         }
 
         private void BtnMusic_Click(object sender, RoutedEventArgs e)
         {
-            switch(Windows.IsMusicMuted)
+            switch(AudioManager.IsMusicMuted)
             {
                 case true:
                 {
-                    Windows.IsMusicMuted = false;
-                    Windows.PlayMenuMusic();
+                    AudioManager.IsMusicMuted = false;
+                    AudioManager.PlayMenuMusic();
 
                     Brush brush = (Brush)new BrushConverter().ConvertFromString("#AA0000");
                     BtnMusic.Background = brush;
@@ -61,11 +66,11 @@ namespace RetroRPG
                 }
                 case false:
                 {
-                    Windows.IsMusicMuted = true;
+                    AudioManager.IsMusicMuted = true;
                     Brush brush = (Brush)new BrushConverter().ConvertFromString("#00AAAA");
                     BtnMusic.Background = brush;
                     BtnMusic.Content = "Play";
-                    Windows.StopMenuMusic();
+                    AudioManager.StopMenuMusic();
                     break;
                 }
             }

@@ -1,5 +1,8 @@
-﻿using System.Threading.Tasks;
+﻿using RetroRPG.components.menu;
+using System;
+using System.Threading.Tasks;
 using System.Windows;
+using static RetroRPG.components.menu.Windows;
 
 namespace RetroRPG
 {
@@ -11,6 +14,11 @@ namespace RetroRPG
         public Menu_Start()
         {
             InitializeComponent();
+            Closed += OnWindowClosed;
+        }
+        private void OnWindowClosed(object sender, EventArgs e)
+        {
+            Application.Current.Shutdown();
         }
 
         int typeSpeedInMS = 70;
@@ -98,7 +106,7 @@ namespace RetroRPG
 
             else
             {
-                MessageBox.Show("Start Game.");
+                WindowUtilities.RedirectWindow(this, typeof(GameView));
             }
         }
 
