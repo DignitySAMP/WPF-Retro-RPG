@@ -4,6 +4,7 @@
              xmlns:local="clr-namespace:RetroRPG"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <FontFamily x:Key="TitleFont">/RetroRPG;component/assets/fonts/#BlackcastleMF</FontFamily>
+        <FontFamily x:Key="BodyFont">/RetroRPG;component/assets/fonts/#Pixel Azure Bonds</FontFamily>
     </Application.Resources>
 </Application>

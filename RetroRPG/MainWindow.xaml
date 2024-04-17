@@ -16,8 +16,8 @@
             </Grid.RowDefinitions>
 
             <StackPanel Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center" Name="StackTitle">
-                <Label  HorizontalContentAlignment="Center" Foreground="White" FontFamily="BlackCastleMF" FontSize="96">Retro RPG</Label>
-                <Label HorizontalContentAlignment="Center" Foreground="Yellow" FontFamily="Pixel Azure Bonds" FontSize="36" RenderTransformOrigin="0.5,0.5">
+                <Label  HorizontalContentAlignment="Center" Foreground="White" FontFamily="{StaticResource TitleFont}" FontSize="96">Retro RPG</Label>
+                <Label HorizontalContentAlignment="Center" Foreground="Yellow" FontFamily="{StaticResource BodyFont}" FontSize="36" RenderTransformOrigin="0.5,0.5">
                     <Label.RenderTransform>
                         <TransformGroup>
                             <TranslateTransform Y="-15"/>
@@ -31,7 +31,7 @@
                     <Style TargetType="Button">
                         <Setter Property="Background" Value="#FF0000AA" />
                         <Setter Property="BorderBrush" Value="#00707070" />
-                        <Setter Property="FontFamily" Value="Pixel Azure Bonds" />
+                        <Setter Property="FontFamily" Value="{StaticResource BodyFont}" />
                         <Setter Property="FontSize" Value="16" />
                         <Setter Property="Foreground" Value="White" />
                         <Setter Property="Template">
@@ -69,7 +69,7 @@
                     <Style TargetType="Button">
                         <Setter Property="Background" Value="#FF0000AA" />
                         <Setter Property="BorderBrush" Value="#00707070" />
-                        <Setter Property="FontFamily" Value="Pixel Azure Bonds" />
+                        <Setter Property="FontFamily" Value="{StaticResource BodyFont}" />
                         <Setter Property="FontSize" Value="16" />
                         <Setter Property="Foreground" Value="White" />
                         <Setter Property="Template">
@@ -89,7 +89,7 @@
                     </Style>
                 </WrapPanel.Resources>
                 <Button Name="BtnMusic" FontSize="8" Background="#FFAA0000" Click="BtnMusic_Click" >Mute</Button>
-                <Label Foreground="#FFFDFDFD" FontFamily="Pixel Azure Bonds" FontSize="8">A simple C# WPF application trying to mimic a Retro (90's) RPG</Label>
+                <Label Foreground="#FFFDFDFD" FontFamily="{StaticResource BodyFont}" FontSize="8">A simple C# WPF application trying to mimic a Retro (90's) RPG</Label>
             </WrapPanel>
         </Grid>
     </Viewbox>

@@ -15,7 +15,7 @@
                 <RowDefinition Height="64"/>
             </Grid.RowDefinitions>
 
-            <Label Grid.Row="0" HorizontalContentAlignment="Center" FontFamily="Pixel Azure Bonds" Foreground="White" FontSize="36">Load Game</Label>
+            <Label Grid.Row="0" HorizontalContentAlignment="Center" FontFamily="{StaticResource BodyFont}" Foreground="White" FontSize="36">Load Game</Label>
 
             <StackPanel Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
 
@@ -23,7 +23,7 @@
                     <Style TargetType="Button">
                         <Setter Property="Background" Value="#FF0000AA" />
                         <Setter Property="BorderBrush" Value="#00707070" />
-                        <Setter Property="FontFamily" Value="Pixel Azure Bonds" />
+                        <Setter Property="FontFamily" Value="{StaticResource BodyFont}" />
                         <Setter Property="FontSize" Value="16" />
                         <Setter Property="Foreground" Value="White" />
                         <Setter Property="Template">
@@ -45,7 +45,7 @@
                     </Style>
                 </StackPanel.Resources>
 
-                <Button Name="BtnLoadGame" Width="384" Height="64" BorderBrush="#00707070" FontFamily="Pixel Azure Bonds" FontSize="16" Foreground="White">
+                <Button Name="BtnLoadGame" Width="384" Height="64" BorderBrush="#00707070" FontFamily="{StaticResource BodyFont}" FontSize="16" Foreground="White">
                     <Button.Style>
                         <Style TargetType="Button">
                             <Setter Property="Background" Value="#FF0000AA" />
@@ -90,12 +90,12 @@
                         </Style>
                     </Button.Style>
                 </Button>
-                <Button IsEnabled="False" Margin="0,10,0,0" Width="384" Height="64" FontFamily="Pixel Azure Bonds" FontSize="16">Empty Save Slot 2</Button>
-                <Button IsEnabled="False" Margin="0,10,0,0" Width="384" Height="64" FontFamily="Pixel Azure Bonds" FontSize="16">Empty Save Slot 3</Button>
-                <Button IsEnabled="False" Margin="0,10,0,0" Width="384" Height="64" FontFamily="Pixel Azure Bonds" FontSize="16">Empty Save Slot 4</Button>
+                <Button IsEnabled="False" Margin="0,10,0,0" Width="384" Height="64" FontFamily="{StaticResource BodyFont}" FontSize="16">Empty Save Slot 2</Button>
+                <Button IsEnabled="False" Margin="0,10,0,0" Width="384" Height="64" FontFamily="{StaticResource BodyFont}" FontSize="16">Empty Save Slot 3</Button>
+                <Button IsEnabled="False" Margin="0,10,0,0" Width="384" Height="64" FontFamily="{StaticResource BodyFont}" FontSize="16">Empty Save Slot 4</Button>
             </StackPanel>
 
-            <Button Name="BtnBack" HorizontalAlignment="Left" Height="40" Width="128" Grid.Row="2" Background="#FF00AAAA" BorderBrush="#00707070" FontFamily="Pixel Azure Bonds" FontSize="16" Foreground="White" Click="BtnBack_Click">Go Back</Button>
+            <Button Name="BtnBack" HorizontalAlignment="Left" Height="40" Width="128" Grid.Row="2" Background="#FF00AAAA" BorderBrush="#00707070" FontFamily="{StaticResource BodyFont}" FontSize="16" Foreground="White" Click="BtnBack_Click">Go Back</Button>
         </Grid>
     </Viewbox>
 </Window>

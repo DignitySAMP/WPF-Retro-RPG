@@ -20,7 +20,7 @@
             <Style TargetType="Button">
                 <Setter Property="Background" Value="Black" />
                 <Setter Property="BorderBrush" Value="#00707070" />
-                <Setter Property="FontFamily" Value="Pixel Azure Bonds" />
+                <Setter Property="FontFamily" Value="{StaticResource BodyFont}" />
                 <Setter Property="FontSize" Value="14" />
                 <Setter Property="Foreground" Value="White" />
                 <Setter Property="Template">
@@ -47,17 +47,17 @@
             </Style>
         </Grid.Resources>
 
-        <Label Grid.Row="0" Foreground="White" FontFamily="BlackCastleMF" FontSize="22">introduction</Label>
-        <Label Visibility="Hidden" Name="LblDivider1" Grid.Row="1" Foreground="#FF4F4FCE" FontFamily="Pixel Azure Bonds">--------------------------</Label>
+            <Label Grid.Row="0" Foreground="White" FontFamily="{StaticResource TitleFont}" FontSize="22">introduction</Label>
+            <Label Visibility="Hidden" Name="LblDivider1" Grid.Row="1" Foreground="#FF4F4FCE" FontFamily="{StaticResource BodyFont}">--------------------------</Label>
         <StackPanel Grid.Row="2">
-            <TextBlock Height="140" Width="800" IsEnabled="False" Background="#00000000" Name="LblIntroText" xml:space="preserve" Foreground="#FF5555FF" FontFamily="Pixel Azure Bonds" TextWrapping="Wrap" FontSize="11"></TextBlock>
-            <Label Visibility="Hidden" Name="LblDivider2" Foreground="#FF4F4FCE" FontFamily="Pixel Azure Bonds">--------------------------</Label>
-            <Label Visibility="Hidden" Name="LblDivider3" Foreground="White" FontFamily="Pixel Azure Bonds">--------------------------</Label>
-            <TextBlock xml:space="preserve" Height="150" Width="800" IsEnabled="False" Background="#00000000" Name="LblStatsText" Foreground="White" FontFamily="Pixel Azure Bonds" TextWrapping="Wrap" FontSize="11"></TextBlock>
+            <TextBlock Height="140" Width="800" IsEnabled="False" Background="#00000000" Name="LblIntroText" xml:space="preserve" Foreground="#FF5555FF" FontFamily="{StaticResource BodyFont}" TextWrapping="Wrap" FontSize="11"></TextBlock>
+            <Label Visibility="Hidden" Name="LblDivider2" Foreground="#FF4F4FCE" FontFamily="{StaticResource BodyFont}">--------------------------</Label>
+            <Label Visibility="Hidden" Name="LblDivider3" Foreground="White" FontFamily="{StaticResource BodyFont}">--------------------------</Label>
+            <TextBlock xml:space="preserve" Height="150" Width="800" IsEnabled="False" Background="#00000000" Name="LblStatsText" Foreground="White" FontFamily="{StaticResource BodyFont}" TextWrapping="Wrap" FontSize="11"></TextBlock>
         </StackPanel>
-        <Label Visibility="Hidden" Name="LblDivider4" Grid.Row="3" Foreground="White" FontFamily="Pixel Azure Bonds">--------------------------</Label>
+        <Label Visibility="Hidden" Name="LblDivider4" Grid.Row="3" Foreground="White" FontFamily="{StaticResource BodyFont}">--------------------------</Label>
        
-        <Button Name="BtnSkip" Grid.Row="4" HorizontalAlignment="Right" VerticalAlignment="Center" Foreground="White"  FontFamily="Pixel Azure Bonds" Click="BtnSkip_Click">Skip</Button>
+        <Button Name="BtnSkip" Grid.Row="4" HorizontalAlignment="Right" VerticalAlignment="Center" Foreground="White"  FontFamily="{StaticResource BodyFont}" Click="BtnSkip_Click">Skip</Button>
 
     </Grid>
     </Viewbox>
