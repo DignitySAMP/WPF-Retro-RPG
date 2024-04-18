@@ -42,10 +42,8 @@ namespace RetroRPG
 
         /*
             TODO:
-                - Make it so the exported map is put in an "exports" folder, using ORIGINAL_FILENAME_edited_DATE.txt.
-                - Add a scrollviewer with the tiles.
+                - Add undo and redo functionality.
                 - Add system where you select a sprite, then you select a grid tile to replace it.
-                - Make an undo button. 
         */
         Border[] gridTiles = new Border[330];
         private void CreateMapTiles() // INFO: "Tag" is correct. 22 * 15 = 330 and last tile is 330.
