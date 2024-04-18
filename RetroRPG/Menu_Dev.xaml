@@ -45,9 +45,13 @@
                 </Grid.ColumnDefinitions>
 
                 <WrapPanel Grid.Column="0" Grid.ColumnSpan="2" Grid.RowSpan="3" Grid.Row="0"  Background="Black" Name="StackMap"/>
-                <StackPanel Grid.Row="0" Grid.Column="2" Background="Black" Name="StackTiles"/>
 
                 <Label HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="0" Grid.ColumnSpan="2" Grid.RowSpan="3" Grid.Row="0" Name="LblWarning" Foreground="LightGray" FontFamily="{StaticResource BodyFont}" FontSize="52" >No map loaded</Label>
+                <ScrollViewer  Grid.Row="0" Grid.RowSpan="2" Grid.Column="2" Name="TileScroller" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                    <UniformGrid Margin="2" Name="TileWrapper" Columns="8"/>
+                </ScrollViewer>
+
+
             </Grid>
         </DockPanel>
     </Viewbox>

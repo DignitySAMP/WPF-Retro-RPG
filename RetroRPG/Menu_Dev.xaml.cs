@@ -32,6 +32,7 @@ namespace RetroRPG
             InitializeComponent();
             AudioManager.StopMenuMusic();
             Closed += OnWindowClosed;
+            PopulateTiles();
         }
         private void OnWindowClosed(object sender, System.EventArgs e)
         {
@@ -316,5 +317,40 @@ namespace RetroRPG
                 Application.Current.Shutdown();
             }
         }
+
+        private void PopulateTiles()
+        {
+            string basePath = "/assets/sprites/tiles/";
+            int tilesPerRow = 8;
+
+            for (int i = 0; i < 255; i++)
+            {
+                string imagePath = $"{basePath}tile{i.ToString("000")}.png";
+                Image image = new Image
+                {
+                    Source = new BitmapImage(new Uri(imagePath, UriKind.Relative)),
+                    Width = 28,
+                    Height = 28,
+                    Tag = i 
+                };
+
+                image.MouseLeftButtonUp += (sender, e) =>
+                {
+
+                    int imageNumber = (int)image.Tag;
+                    MessageBox.Show($"Clicked on image {imageNumber}");
+
+                };
+
+                TileWrapper.Children.Add(image);
+
+                // Check if we need to start a new row
+                if (TileWrapper.Children.Count % tilesPerRow == 0)
+                {
+                    TileWrapper.Rows++;
+                }
+            }
+        }
+
     }
 }
