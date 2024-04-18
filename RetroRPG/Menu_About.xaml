@@ -6,20 +6,27 @@
         xmlns:local="clr-namespace:RetroRPG"
         mc:Ignorable="d"
         Title="Menu_About" Height="450" Width="800">
- 
+
+    <Viewbox>
         <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="255"/>
+                <RowDefinition Height="255"/>
+                <RowDefinition Height="100"/>
+            </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="550"/>
-                <ColumnDefinition/>
+                <ColumnDefinition Width="450"/>
+                <ColumnDefinition Width="450"/>
+                <ColumnDefinition Width="270"/>
             </Grid.ColumnDefinitions>
 
-            <WrapPanel Grid.Column="0" Grid.RowSpan="2" Background="Black" Name="StackMap"
+            <WrapPanel Grid.Column="0" Grid.ColumnSpan="2" Grid.RowSpan="3" Grid.Row="0"  Background="Black" Name="StackMap"
                        ></WrapPanel>
-            <StackPanel Grid.Column="1" Background="Black" Name="StackTiles"
+            <StackPanel Grid.Row="0" Grid.Column="2" Background="DarkGray" Name="StackTiles"
                         >
                 <Button Name="ExportMap" Height="30" Click="ExportMap_Click">Export</Button>
             </StackPanel>
 
         </Grid>
-
+    </Viewbox>
 </Window>

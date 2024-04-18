@@ -35,34 +35,64 @@ namespace RetroRPG
         {
             Application.Current.Shutdown();
         }
+        /*
+            TODO:
+                - Add a file opener.
+                - Make it so the exported map is put in an "exports" folder, using ORIGINAL_FILENAME_edited_DATE.txt.
+                - Add a scrollviewer with the tiles.
+                - Add system where you select a sprite, then you select a grid tile to replace it.
+                - Make an undo button. 
+        */
+        Border[] gridTiles = new Border[330];
         private void CreateMapTiles()
         {
-            // Add a vertical and horizontal scrollviewer. Then put it in a viewbox.
             // INFO: "Tag" is correct. 22 * 15 = 330 and last tile is 330.
+            /*
+                IMPORTANT: The loader/exporter WORKS. However, because of the dynamic nature of the wrappanel, the tiles will be different in the Canvas compared to the .txt.
+                Only edit maps using this editor
+            */
             int rows = 22;
             int columns = 15;
+            int raw_index = 0;
 
             string[] lines = File.ReadAllLines("map.txt");
-
-            int raw_index = 0; 
-
             for (int i = 0; i < rows; i++)
             {
-                string[] tileIndices = lines[i].Split(',').Select(x => x.Trim()).ToArray();
+                string[] tileIndices = lines[i].Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
 
-                for (int j = 0; j < columns && j < tileIndices.Length; j++)
+                // Pad the array with zeros if it has fewer elements than 'columns'
+                if (tileIndices.Length < columns)
+                {
+                    Array.Resize(ref tileIndices, columns);
+                    for (int k = tileIndices.Length; k < columns; k++)
+                    {
+                        tileIndices[k] = "0";
+                    }
+                }
+                // Iterate from first to last element
+                for (int j = 0; j < columns; j++)
                 {
                     int tileIndex;
                     if (int.TryParse(tileIndices[j], out tileIndex))
                     {
+                        gridTiles[raw_index] = new Border
+                        {
+                            BorderBrush = Brushes.Gray,
+                            BorderThickness = new Thickness(1),
+                            HorizontalAlignment = HorizontalAlignment.Center,
+                            VerticalAlignment = VerticalAlignment.Center
+                        };
+
                         StackPanel stackPanel = new StackPanel
                         {
                             Width = 37.5,
                             Height = 37.5
                         };
+                        string identifier = $"Tile{tileIndex}";
                         Image tileImage = new Image
                         {
                             Source = new BitmapImage(new Uri($"pack://application:,,,/assets/sprites/tiles/tile{tileIndex:D3}.png")),
+                            Name = identifier.ToString(),
                             Tag = raw_index, // Use Tag property to associate tileIndex
                             Width = 37.5,
                             Height = 37.5,
@@ -70,19 +100,16 @@ namespace RetroRPG
                         };
 
                         stackPanel.Children.Add(tileImage);
-                        raw_index++;
 
-
-                        stackPanel.MouseLeftButtonDown += (sender, e) =>
+                        gridTiles[raw_index].MouseLeftButtonDown += (sender, e) =>
                         {
-
                             string content = tileImage.Tag.ToString();
-
                             MessageBox.Show($"Button with content '{content}' was clicked!");
                         };
+                        gridTiles[raw_index].Child = stackPanel;
 
-
-                        StackMap.Children.Add(stackPanel);
+                        StackMap.Children.Add(gridTiles[raw_index]);
+                        raw_index++;
                     }
                     else
                     {
@@ -91,57 +118,106 @@ namespace RetroRPG
                 }
             }
         }
+
         private void ExportMap_Click(object sender, RoutedEventArgs e)
         {
+            int rows = 22;
+            int columns = 15;
+
             StringBuilder mapBuilder = new StringBuilder();
+            bool result = true;
 
-            // Build the map string
-            for (int i = 0; i < 22; i++)
+            for (int i = 0; i < rows; i++)
             {
-                for (int j = 0; j < 15; j++)
+                for (int j = 0; j < columns; j++)
                 {
-                    // Assuming you have access to the StackMap children
-                    if (StackMap.Children[i * 15 + j] is StackPanel stackPanel)
-                    {
-                        // Assuming the content of each child is a button with a number
-                        if (stackPanel.Children[0] is Image tileImage)
-                        {
-                            // Extract the tile index from the image source URI
-                            string sourceUri = tileImage.Source.ToString();
-                            int startIndex = sourceUri.LastIndexOf("tile") + 4;
-                            int endIndex = sourceUri.LastIndexOf(".png");
-                            string tileIndexStr = sourceUri.Substring(startIndex, endIndex - startIndex);
+                    // Calculate the index of the tile in the gridTiles array
+                    int index = i * columns + j;
 
-                            mapBuilder.Append(tileIndexStr);
-                        }
-                        else
+                    if (gridTiles[index].Child is StackPanel stackpanel)
+                    {
+                        if (stackpanel.Children[0] is Image tileImage)
                         {
-                            // If the child is not an image, append a placeholder
-                            mapBuilder.Append("0");
+                            string formattedName = tileImage.Name.Replace("Tile", "");
+                            mapBuilder.Append($"{formattedName}");
+
+                            // Append a comma if it's not the last tile in the row
+                            if (j < columns - 1)
+                            {
+                                mapBuilder.Append(", ");
+                            }
                         }
                     }
                     else
                     {
-                        // If the child is missing, append a placeholder
+                        // If the child is not an image, append a placeholder
                         mapBuilder.Append("0");
-                    }
 
-                    // Append comma after each tile index
-                    mapBuilder.Append(",");
+                        // Append a comma if it's not the last tile in the row
+                        if (j < columns - 1)
+                        {
+                            mapBuilder.Append(", ");
+                        }
 
-                    // Append newline after each row
-                    if (j == 14)
-                    {
-                        mapBuilder.AppendLine();
+                        result = false;
                     }
                 }
+
+                // Append a new line character after each row
+                mapBuilder.AppendLine();
             }
 
             // Write the map data to a file
-            File.WriteAllText("map.txt", mapBuilder.ToString());
+            File.WriteAllText("exported_map.txt", mapBuilder.ToString());
 
-            MessageBox.Show("Map exported successfully to map.txt!");
+            if (result)
+            {
+                MessageBox.Show("Map exported successfully to exported_map.txt!");
+            }
+            else
+            {
+                MessageBox.Show("There were issues with exporting the map. Check the output file for missing or incorrect tiles.");
+            }
         }
+
 
     }
 }
+
+/*
+ This fixes bugged maps.
+
+
+// Read the contents of the original text file
+string[] lines = File.ReadAllLines("map.txt");
+
+// Ensure each row has the correct number of elements
+for (int i = 0; i < lines.Length; i++)
+{
+    string[] tileIndices = lines[i].Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+
+    // Pad the row with zeros if it has fewer elements than 'columns'
+    if (tileIndices.Length < columns)
+    {
+        Array.Resize(ref tileIndices, columns);
+        for (int k = tileIndices.Length; k < columns; k++)
+        {
+            tileIndices[k] = "0";
+        }
+    }
+    // Truncate the row if it has more elements than 'columns'
+    else if (tileIndices.Length > columns)
+    {
+        Array.Resize(ref tileIndices, columns);
+    }
+
+    // Join the elements back into a comma-separated string
+    lines[i] = string.Join(",", tileIndices);
+}
+
+// Join the rows into a single string with newline characters
+string formattedContent = string.Join(Environment.NewLine, lines);
+
+// Write the formatted content back to the text file
+File.WriteAllText("map.txt", formattedContent, Encoding.UTF8);
+*/
