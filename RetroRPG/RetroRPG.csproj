@@ -71,10 +71,14 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="components\Data.cs" />
-    <Compile Include="components\game\Actions.cs" />
-    <Compile Include="components\game\Canvas.cs" />
-    <Compile Include="components\game\History.cs" />
-    <Compile Include="components\game\Interface.cs" />
+    <Compile Include="components\dev\Map.cs" />
+    <Compile Include="components\dev\Menu.cs" />
+    <Compile Include="components\dev\Selection.cs" />
+    <Compile Include="components\dev\Tiles.cs" />
+    <Compile Include="components\game\canvas\Actions.cs" />
+    <Compile Include="components\game\canvas\Canvas.cs" />
+    <Compile Include="components\game\canvas\History.cs" />
+    <Compile Include="components\game\canvas\Interface.cs" />
     <Compile Include="components\Menu.cs" />
     <Compile Include="GameView.xaml.cs">
       <DependentUpon>GameView.xaml</DependentUpon>
@@ -399,5 +403,6 @@
     <Content Include="assets\music\intro_story.wav" />
     <Content Include="assets\music\menu.wav" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

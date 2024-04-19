@@ -10,13 +10,8 @@
     <Viewbox>
         <DockPanel Background="Black">
             <Menu HorizontalAlignment="Stretch" DockPanel.Dock="Top">
-                <MenuItem Header="File">
-                    <MenuItem Name="MenuNew" Header="New" Click="MenuNew_Click"/>
-                    <MenuItem Name="MenuOpen" Header="Open" Click="MenuOpen_Click"/>
-                    <MenuItem Name="MenuExport" Header="Save" Click="MenuExport_Click"/>
-                    <MenuItem Name="MenuRefactor" Header="Refactor" Click="MenuRefactor_Click"/>
-                    <MenuItem Name="MenuClose" Header="Close" Click="MenuClose_Click"/>
-                </MenuItem>
+                <MenuItem Header="File" Name="MenuBar"/>
+
                 <MenuItem Header="Options">
                     <MenuItem Header="Undo"></MenuItem>
                     <MenuItem Header="Redo"></MenuItem>
@@ -48,11 +43,11 @@
                     <ColumnDefinition Width="270"/>
                 </Grid.ColumnDefinitions>
 
-                <WrapPanel Grid.Column="0" Grid.ColumnSpan="2" Grid.RowSpan="3" Grid.Row="0"  Background="Black" Name="StackMap"/>
+                <WrapPanel Grid.Column="0" Grid.ColumnSpan="2" Grid.RowSpan="3" Grid.Row="0"  Background="Black" Name="GridWrapper"/>
 
                 <Label HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="0" Grid.ColumnSpan="2" Grid.RowSpan="3" Grid.Row="0" Name="LblWarning" Foreground="LightGray" FontFamily="{StaticResource BodyFont}" FontSize="52" >No map loaded</Label>
                 <ScrollViewer  Grid.Row="0" Grid.RowSpan="3" Grid.Column="2" Name="TileScroller" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
-                    <UniformGrid Margin="2" Name="TileWrapper" Columns="8"/>
+                    <UniformGrid Margin="2" x:Name="TileWrapper" Columns="8"/>
                 </ScrollViewer>
 
             </Grid>

@@ -32,6 +32,8 @@ namespace RetroRPG.components.menu
                     newWindow.WindowState = WindowState.Normal;
                 }
 
+                AudioManager.StopMenuMusic();
+
                 owner.Hide();
                 newWindow.Show();
             }
