@@ -116,6 +116,7 @@ namespace RetroRPG.components.game
             switch (tabButton.Name)
             {
                 case "Map":
+                    // Make this not a map, but rather char info. Name, Location, Health, Stamina, ...
                     interfacePanelContent.Children.Add(new Label() { FontFamily = (FontFamily)Application.Current.Resources["BodyFont"], Content = "Map Content" }); ;
                     break;
                 case "Items":
@@ -131,6 +132,7 @@ namespace RetroRPG.components.game
                     break;
             }
         }
+
 
 
     }
