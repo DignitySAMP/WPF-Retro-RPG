@@ -32,12 +32,20 @@ namespace RetroRPG
             InitializeComponent();
             AudioManager.StopMenuMusic();
             Closed += OnWindowClosed;
-            PopulateTiles();
+            CreateImageTiles();
         }
         private void OnWindowClosed(object sender, System.EventArgs e)
         {
             Application.Current.Shutdown();
         }
+
+        int SelectedCanvasTile = -1;
+        Image SelectedCanvasImage = null;
+        StackPanel SelectedCanvasStack = null;
+
+        int SelectedImageTile = -1;
+        Image SelectedImageImage = null;
+        StackPanel SelectedImageStack = null;
 
 
         /*
@@ -108,8 +116,23 @@ namespace RetroRPG
 
                         gridTiles[raw_index].MouseLeftButtonDown += (sender, e) =>
                         {
-                            string content = tileImage.Tag.ToString();
-                            MessageBox.Show($"Button with content '{content}' was clicked!");
+                            if (SelectedCanvasTile != -1)
+                            {
+                                SelectedCanvasImage.Opacity = 1.0;
+                                SelectedCanvasStack.Background = Brushes.Gray;
+
+                                SelectedCanvasTile = -1;
+                                SelectedCanvasImage = null;
+                                SelectedCanvasStack = null;
+                            }
+                            stackPanel.Background = Brushes.Red;
+                            tileImage.Opacity = 0.5;
+
+                            SelectedCanvasTile = (int)tileImage.Tag;
+                            SelectedCanvasImage = tileImage;
+                            SelectedCanvasStack = stackPanel;
+
+                            //MessageBox.Show($"Button with content '{tileImage.Tag.ToString()}' was clicked!");
                         };
                         gridTiles[raw_index].Child = stackPanel;
 
@@ -124,6 +147,63 @@ namespace RetroRPG
             }
         }
 
+
+
+        private void CreateImageTiles()
+        {
+            string basePath = "/assets/sprites/tiles/";
+            int tilesPerRow = 8;
+
+            for (int i = 0; i < 255; i++)
+            {
+                string imagePath = $"{basePath}tile{i.ToString("000")}.png";
+                Image image = new Image
+                {
+                    Source = new BitmapImage(new Uri(imagePath, UriKind.Relative)),
+                    Width = 28,
+                    Height = 28,
+                    Tag = i
+                };
+
+                StackPanel stackpanel = new StackPanel
+                {
+                    Width = 28,
+                    Height = 28
+                };
+
+                stackpanel.Children.Add(image);
+
+                image.MouseLeftButtonUp += (sender, e) =>
+                {
+
+                    if (SelectedImageTile != -1)
+                    {
+                        SelectedImageImage.Opacity = 1.0;
+                        SelectedImageStack.Background = Brushes.Gray;
+
+                        SelectedImageTile = -1;
+                        SelectedImageImage = null;
+                        SelectedImageStack = null;
+
+
+                    }
+                    image.Opacity = 0.5;
+                    stackpanel.Background = Brushes.Red;
+
+                    SelectedImageTile = (int)image.Tag;
+                    SelectedImageImage = image;
+                    SelectedImageStack = stackpanel;
+                };
+
+                TileWrapper.Children.Add(stackpanel);
+
+                // Check if we need to start a new row
+                if (TileWrapper.Children.Count % tilesPerRow == 0)
+                {
+                    TileWrapper.Rows++;
+                }
+            }
+        }
 
 
         private void MenuNew_Click(object sender, RoutedEventArgs e)
@@ -315,40 +395,5 @@ namespace RetroRPG
                 Application.Current.Shutdown();
             }
         }
-
-        private void PopulateTiles()
-        {
-            string basePath = "/assets/sprites/tiles/";
-            int tilesPerRow = 8;
-
-            for (int i = 0; i < 255; i++)
-            {
-                string imagePath = $"{basePath}tile{i.ToString("000")}.png";
-                Image image = new Image
-                {
-                    Source = new BitmapImage(new Uri(imagePath, UriKind.Relative)),
-                    Width = 28,
-                    Height = 28,
-                    Tag = i 
-                };
-
-                image.MouseLeftButtonUp += (sender, e) =>
-                {
-
-                    int imageNumber = (int)image.Tag;
-                    MessageBox.Show($"Clicked on image {imageNumber}");
-
-                };
-
-                TileWrapper.Children.Add(image);
-
-                // Check if we need to start a new row
-                if (TileWrapper.Children.Count % tilesPerRow == 0)
-                {
-                    TileWrapper.Rows++;
-                }
-            }
-        }
-
     }
 }
