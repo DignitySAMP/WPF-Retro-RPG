@@ -103,7 +103,7 @@ namespace RetroRPG.components.dev
 
             if (result)
             {
-                MessageBox.Show("Map exported successfully to exported_map.txt!");
+                MessageBox.Show($"Map exported successfully to {OpenedMapPath}!");
             }
             else
             {
