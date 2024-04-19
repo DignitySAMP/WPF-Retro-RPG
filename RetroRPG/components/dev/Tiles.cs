@@ -34,7 +34,6 @@ namespace RetroRPG.components.dev
                     Height = 28,
                     Tag = i
                 };
-                Console.WriteLine($"Tag: {i}");
 
                 StackPanel stackpanel = new StackPanel
                 {

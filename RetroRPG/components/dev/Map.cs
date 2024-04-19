@@ -88,16 +88,16 @@ namespace RetroRPG.components.dev
                         gridTiles[raw_index].MouseLeftButtonDown += (sender, e) =>
                         {
                             // to be tested
-                            int previous_tile_id = Selection.Tiles.HasTileSelected();
+                            int previous_tile_id = Selection.Grid.HasGridSelected();
                             int selected_tile_id = (int)tileImage.Tag;
 
                             if (previous_tile_id != -1)
                             {
-                                Selection.Tiles.ResetTile();
+                                Selection.Grid.ResetGrid();
                             }
                             if (previous_tile_id != selected_tile_id)
                             {
-                                Selection.Tiles.SelectTile(selected_tile_id, stackPanel, tileImage);
+                                Selection.Grid.SelectGrid(selected_tile_id, stackPanel, tileImage);
                             }
                         };
                         gridTiles[raw_index].Child = stackPanel;
