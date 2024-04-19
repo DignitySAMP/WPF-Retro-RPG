@@ -71,6 +71,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="components\Data.cs" />
+    <Compile Include="components\dev\Grid.cs" />
     <Compile Include="components\dev\Map.cs" />
     <Compile Include="components\dev\Menu.cs" />
     <Compile Include="components\dev\Selection.cs" />

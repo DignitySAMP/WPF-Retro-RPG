@@ -13,8 +13,8 @@ namespace RetroRPG.components.dev
 {
     public static class Map
     {
-        static WrapPanel CanvasWrapPanel = new WrapPanel();
-        static Label CanvasWarningLabel = new Label();
+        public static WrapPanel CanvasWrapPanel = new WrapPanel();
+        public static Label CanvasWarningLabel = new Label();
         public static void SetupMap(WrapPanel wrap, Label label)
         {
             CanvasWrapPanel = wrap;
@@ -24,96 +24,6 @@ namespace RetroRPG.components.dev
         public static bool HasMapOpen = false;
         public static string OpenedMapPath = null;
 
-        static Border[] gridTiles = new Border[330];
-        public static void CreateMapTiles() // INFO: "Tag" is correct. 22 * 15 = 330 and last tile is 330.
-        {
-            if (OpenedMapPath == null || !HasMapOpen)
-            {
-                Interaction.MsgBox("You do not have a map open.", MsgBoxStyle.OkOnly | MsgBoxStyle.Critical);
-                return;
-            }
-
-            CanvasWrapPanel.Children.Clear(); // wipe old content if it's here
-
-            int rows = 22;
-            int columns = 15;
-            int raw_index = 0;
-
-            string[] lines = File.ReadAllLines(OpenedMapPath);
-            for (int i = 0; i < rows; i++)
-            {
-                string[] tileIndices = lines[i].Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
-
-
-                if (tileIndices.Length < columns)
-                {
-                    Array.Resize(ref tileIndices, columns);
-                    for (int k = tileIndices.Length; k < columns; k++)
-                    {
-                        tileIndices[k] = "0";
-                    }
-                }
-
-                for (int j = 0; j < columns; j++) // first to last
-                {
-                    int tileIndex;
-                    if (int.TryParse(tileIndices[j], out tileIndex))
-                    {
-                        gridTiles[raw_index] = new Border
-                        {
-                            BorderBrush = Brushes.Gray,
-                            BorderThickness = new Thickness(1),
-                            HorizontalAlignment = HorizontalAlignment.Center,
-                            VerticalAlignment = VerticalAlignment.Center
-                        };
-
-                        StackPanel stackPanel = new StackPanel
-                        {
-                            Width = 37.5,
-                            Height = 37.5
-                        };
-                        string identifier = $"Tile{tileIndex}";
-                        Image tileImage = new Image
-                        {
-                            Source = new BitmapImage(new Uri($"pack://application:,,,/assets/sprites/tiles/tile{tileIndex:D3}.png")),
-                            Name = identifier.ToString(),
-                            Tag = raw_index, // Use Tag property to associate tileIndex
-                            Width = 37.5,
-                            Height = 37.5,
-                            Opacity = 1.0
-                        };
-
-                        stackPanel.Children.Add(tileImage);
-
-                        gridTiles[raw_index].MouseLeftButtonDown += (sender, e) =>
-                        {
-                            // to be tested
-                            int previous_tile_id = Selection.Grid.HasGridSelected();
-                            int selected_tile_id = (int)tileImage.Tag;
-
-                            if (previous_tile_id != -1)
-                            {
-                                Selection.Grid.ResetGrid();
-                            }
-                            if (previous_tile_id != selected_tile_id)
-                            {
-                                Selection.Grid.SelectGrid(selected_tile_id, stackPanel, tileImage);
-                            }
-                        };
-                        gridTiles[raw_index].Child = stackPanel;
-
-                        CanvasWrapPanel.Children.Add(gridTiles[raw_index]);
-                        raw_index++;
-                    }
-                    else
-                    {
-                        MessageBox.Show($"Invalid tile index at row {i}, column {j}");
-                    }
-                }
-            }
-        }
-
-        // This doesn't work apparently? Debug!
         public static void OpenMap()
         {
             if (!HasMapOpen)
@@ -132,7 +42,7 @@ namespace RetroRPG.components.dev
                     HasMapOpen = true;
                     OpenedMapPath = openFileDialog.FileName;
 
-                    CreateMapTiles();
+                    Grid.CreateMapGrid();
                 }
             }
             else
@@ -160,7 +70,7 @@ namespace RetroRPG.components.dev
                 {
                     int index = i * columns + j;
 
-                    if (gridTiles[index].Child is StackPanel stackpanel)
+                    if (Grid.gridTiles[index].Child is StackPanel stackpanel)
                     {
                         if (stackpanel.Children[0] is Image tileImage)
                         {
@@ -229,8 +139,13 @@ namespace RetroRPG.components.dev
             File.WriteAllText(result.FileName, mapBuilder.ToString());
             Interaction.MsgBox($"You have created a new map at location:\n{result.FileName}", MsgBoxStyle.Information);
 
+            // Create the map without the dialog.
+            CanvasWarningLabel.Visibility = Visibility.Hidden;
+
             HasMapOpen = true;
             OpenedMapPath = result.FileName;
+
+            Grid.CreateMapGrid();
         }
 
         public static void CloseMap()
